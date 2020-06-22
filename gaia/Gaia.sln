@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{70C19EF0-87C7-4118-93B2-63E6C5DDB79F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{676CD6B4-B3DD-409E-A2F5-C5C00738E436}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaia.API", "services\api\src\Gaia.API\Gaia.API.csproj", "{AB9D18F5-3280-4C8E-832B-60E3E14F2350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaia.Application", "services\api\src\Gaia.Application\Gaia.Application.csproj", "{5D2A7E90-A40C-4314-8226-1970753A1D97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FFC7CFCC-CD19-4151-841F-19C4E840ED62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gaia.Application.UnitTest", "services\api\test\Gaia.Application.UnitTest\Gaia.Application.UnitTest.csproj", "{8AA95E2C-70C7-4991-A436-E576E2B13630}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB9D18F5-3280-4C8E-832B-60E3E14F2350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9D18F5-3280-4C8E-832B-60E3E14F2350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9D18F5-3280-4C8E-832B-60E3E14F2350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9D18F5-3280-4C8E-832B-60E3E14F2350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D2A7E90-A40C-4314-8226-1970753A1D97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2A7E90-A40C-4314-8226-1970753A1D97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2A7E90-A40C-4314-8226-1970753A1D97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2A7E90-A40C-4314-8226-1970753A1D97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA95E2C-70C7-4991-A436-E576E2B13630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA95E2C-70C7-4991-A436-E576E2B13630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA95E2C-70C7-4991-A436-E576E2B13630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA95E2C-70C7-4991-A436-E576E2B13630}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{676CD6B4-B3DD-409E-A2F5-C5C00738E436} = {70C19EF0-87C7-4118-93B2-63E6C5DDB79F}
+		{AB9D18F5-3280-4C8E-832B-60E3E14F2350} = {676CD6B4-B3DD-409E-A2F5-C5C00738E436}
+		{5D2A7E90-A40C-4314-8226-1970753A1D97} = {676CD6B4-B3DD-409E-A2F5-C5C00738E436}
+		{FFC7CFCC-CD19-4151-841F-19C4E840ED62} = {676CD6B4-B3DD-409E-A2F5-C5C00738E436}
+		{8AA95E2C-70C7-4991-A436-E576E2B13630} = {FFC7CFCC-CD19-4151-841F-19C4E840ED62}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E9B3019-923F-4FD3-826F-957E8E5BB8C9}
+	EndGlobalSection
+EndGlobal
