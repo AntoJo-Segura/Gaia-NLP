@@ -1,4 +1,4 @@
-name: Balea Continous Integration
+name: Gaia Continous Integration
 on:
   push:
     branches:
