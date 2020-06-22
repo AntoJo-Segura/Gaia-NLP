@@ -1,0 +1,21 @@
+service: gaia-politico
+
+provider:
+  name: aws
+  stackName: ${self:custom.stack_name}
+  stage: ${self:custom.stage}
+  region: eu-west-1
+  stackTags:
+    ProjectName: Politico
+  deploymentBucket:
+    name: {ssm:/gaia/global/serverless-deployment-bucket}
+  deploymentPrefix: gaia-politico/${self:service}
+  
+custom:
+  stage: ${opt:env}
+  stack_name: ${self:service}-${self:custom.stage}
+  environment: ${file(../.env/env.yaml):{self:custom.stage}}
+    
+resources:
+- ${file(./service-policies.yml)}
+- ${file(./service-roles.yml)}
