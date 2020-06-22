@@ -21,6 +21,6 @@ jobs:
           ACTION_NAME: dlopezb93
           GH_PAT: ${{ secrets.GH_PAT }}
           MD_FOLDER: temp_release_notes
-          OWNER: NLP
+          OWNER: dlopezb93
           REPO_NAME: Gaia-NLP
           SKIP_MD: README.md
