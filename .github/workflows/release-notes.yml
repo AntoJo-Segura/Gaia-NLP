@@ -18,9 +18,10 @@ jobs:
         uses: docker://decathlon/wiki-page-creator-action:latest
         env:
           ACTION_MAIL: myuser@users.noreply.github.com
-          ACTION_NAME: dlopezb93
+          ACTION_NAME: myPushingUser
           GH_PAT: ${{ secrets.GH_PAT }}
           MD_FOLDER: temp_release_notes
           OWNER: dlopezb93
           REPO_NAME: Gaia-NLP
           SKIP_MD: README.md
+          
