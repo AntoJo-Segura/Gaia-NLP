@@ -1,0 +1,271 @@
+
+Resources:
+  GaiaAWSCloudFormationExecutionPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: GaiaAWSCloudFormationExecutionPolicy
+      Description: Policy created by Politico.
+      Path: /
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - codepipeline:*
+          - codebuild:*
+          - route53resolver:*
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeInternetGateways
+          - ec2:*NetworkInterface*
+          - ec2:*Address*
+          - ec2:*DhcpOptions*
+          - ec2:*Gateway*
+          - ec2:*Instance*
+          - ec2:*NetworkAcl*
+          - ec2:*Route*
+          - ec2:*SecurityGroup*
+          - ec2:*Subnet*
+          - ec2:*Tags
+          - ec2:*Vpc*
+          - ec2:*Vpn*
+          - eks:Create*
+          - eks:Update*
+          - eks:Delete*
+          - eks:Describe*
+          - eks:List*
+          - ec2:*TransitGateway*
+          - logs:*LogGroup*
+          - logs:*SubscriptionFilter*
+          - logs:*RetentionPolicy
+          - logs:*agLogGroup
+          - route53:*Hosted*
+          - route53:*VPC*
+          - route53:*Get*
+          - route53:*List*
+          - route53:*Record*
+          - tag:*
+          - rds:Describe*
+          - rds:*DBCluster*
+          - rds:*DBInstance*
+          - rds:*Tags*Resource
+          - rds:*teDBSecurityGroup
+          - rds:*teDBSubnetGroup
+          - rds:ModifyDBSubnetGroup
+          - lambda:*EventSourceMapping*
+          - apigateway:*
+          - secretsmanager:*teSecret
+          - secretsmanager:GetRandomPassword
+          - secretsmanager:*agResource
+          - secretsmanager:RotateSecret
+          - secretsmanager:*tSecretValue
+          - cloudfront:*Distribution*
+          - cloudfront:*agResource
+          - sns:*
+          - firehose:*
+          - events:*
+          - autoscaling:*
+          - application-autoscaling:*
+          - states:*agResource
+          Resource: '*'
+        - Effect: Allow
+          Action:
+          - s3:*Bucket
+          - s3:*BucketNotification
+          - s3:*EncryptionConfiguration
+          - s3:ListBucketVersions
+          - s3:ListBucketByTags
+          - s3:*BucketTagging
+          - s3:GetBucketLocation
+          - s3:PutBucketVersioning
+          Resource:
+          - arn:aws:s3:::gaia-*-*
+          - arn:aws:s3:::gaia-source-artifacts-*
+          - arn:aws:s3:::gaia-serverless-deployments-*
+          - arn:aws:s3:::*serverlessdeploy*
+        - Effect: Allow
+          Action:
+          - s3:*Object
+          Resource:
+          - arn:aws:s3:::gaia-*-*/*
+          - arn:aws:s3:::gaia-source-artifacts-*/*
+          - arn:aws:s3:::gaia-serverless-deployments-*/*
+          - arn:aws:s3:::*serverlessdeploy*/*
+        - Effect: Allow
+          Action:
+          - ssm:*tParameter*
+          - ssm:DeleteParameter
+          - ssm:*Tags*Resource
+          Resource:
+          - arn:aws:ssm:eu-west-1:${self:custom.environment.aws_account_id}:parameter/gaia/*
+        - Effect: Allow
+          Action:
+          - iam:PassRole
+          Resource:
+          - arn:aws:iam::${self:custom.environment.aws_account_id}:role/gaia*
+        - Effect: Allow
+          Action:
+          - resource-groups:*ag
+          - resource-groups:*Group
+          - resource-groups:ListGroup*
+          Resource:
+            - arn:aws:resource-groups:eu-west-1:${self:custom.environment.aws_account_id}:group/*
+        - Effect: Allow
+          Action:
+          - lambda:*
+          Resource:
+          - arn:aws:lambda:eu-west-1:${self:custom.environment.aws_account_id}:function:*
+          - arn:aws:lambda:eu-west-1:${self:custom.environment.aws_account_id}:event-source-mapping:*
+          - arn:aws:lambda:eu-west-1:${self:custom.environment.aws_account_id}:layer:*
+          - arn:aws:lambda:eu-west-1:${self:custom.environment.aws_account_id}:layer:*:*
+        - Effect: Allow
+          Action:
+          - iam:CreateServiceLinkedRole
+          Resource:
+          - arn:aws:iam::*:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS
+          - arn:aws:iam::*:role/aws-service-role/*
+          - arn:aws:iam::*:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable
+        - Effect: Allow
+          Action:
+          - iam:CreateServiceLinkedRole
+          Resource:
+          - arn:aws:iam::${self:custom.environment.aws_account_id}:role/aws-service-role/logger.cloudfront.amazonaws.com/AWSServiceRoleForCloudFrontLogger
+          - arn:aws:iam::${self:custom.environment.aws_account_id}:role/aws-service-role/replicator.lambda.amazonaws.com/AWSServiceRoleForLambdaReplicator
+        - Effect: Allow
+          Action:
+          - states:*teActivity
+          - states:*teStateMachine
+          - states:List*
+          Resource:
+          - arn:aws:states:eu-west-1:${self:custom.environment.aws_account_id}:activity:*
+          - arn:aws:states:eu-west-1:${self:custom.environment.aws_account_id}:stateMachine:*
+        - Effect: Allow
+          Action:
+          - dynamodb:*Table*
+          - dynamodb:Describe*
+          - dynamodb:*ag*Resource
+          - dynamodb:UpdateTimeToLive
+          Resource:
+          - arn:aws:dynamodb:eu-west-1:${self:custom.environment.aws_account_id}:table/*
+        - Effect: Allow
+          Action:
+          - sqs:*teQueue
+          - sqs:*etQueueAttributes
+          - sqs:*agQueue
+          Resource:
+          - arn:aws:sqs:eu-west-1:${self:custom.environment.aws_account_id}:gaia*
+        - Effect: Allow
+          Action:
+          - logs:*
+          Resource: '*'
+
+  GaiaAWSWriteS3Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: GaiaAWSWriteS3Policy
+      Description: Policy created by Politico.
+      Path: "/"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Action:
+          - s3:PutObject
+          - s3:DeleteObject
+          - s3:PutObjectTagging
+          Resource: '*'
+
+  GaiaAWSReadS3Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: GaiaAWSReadS3Policy
+      Description: Policy created by Politico.
+      Path: "/"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Action:
+          - s3:GetObject
+          Resource: '*'
+        - Effect: Allow
+          Action:
+          - s3:ListBucket*
+          Resource:
+          - arn:aws:s3:::*
+
+  GaiaAWSReadSettingsPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: GaiaAWSReadSettingsPolicy
+      Description: Policy created by Politico.
+      Path: "/"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Action:
+          - ssm:GetParameter*
+          Resource:
+          - arn:aws:ssm:eu-west-1:${self:custom.environment.aws_account_id}:parameter/gaia/*
+        - Effect: Allow
+          Action:
+          - secretsmanager:GetSecretValue
+          - secretsmanager:DescribeSecret
+          Resource:
+          - arn:aws:secretsmanager:eu-west-1:${self:custom.environment.aws_account_id}:secret:/gaia/*
+        - Effect: Allow
+          Action:
+          - secretsmanager:ListSecrets
+          Resource: '*'
+
+  GaiaAWSDynamoReadOnlyPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: GaiaAWSDynamoReadOnlyPolicy
+      Description: Policy created by Politico.
+      Path: "/"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Action:
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:DescribeTable
+          - dynamodb:DescribeTimeToLive
+          - dynamodb:GetItem
+          Resource:
+          - arn:aws:dynamodb:eu-west-1:${self:custom.environment.aws_account_id}:table/*
+
+  GaiaAWSDynamoWritePolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: GaiaAWSDynamoWritePolicy
+      Description: Policy created by Politico.
+      Path: "/"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Action:
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:BatchWriteItem
+          Resource:
+          - arn:aws:dynamodb:eu-west-1:${self:custom.environment.aws_account_id}:table/*
+
+  GaiaAWSAsyncLambdaExecutionPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: GaiaAWSAsyncLambdaExecutionPolicy
+      Description: Policy created by Politico.
+      Path: "/"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Action:
+          - lambda:InvokeAsync
+          Resource:
+          - Fn::Sub: arn:aws:lambda:eu-west-1:${self:custom.environment.aws_account_id}:function:*

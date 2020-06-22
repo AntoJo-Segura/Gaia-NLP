@@ -1,0 +1,53 @@
+
+Resources:
+  GaiaAWSCloudFormationExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: GaiaAWSCloudFormationExecutionRole
+      MaxSessionDuration: 3600
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: cloudformation.amazonaws.com
+          Action:
+          - sts:AssumeRole
+        - Effect: Allow
+          Principal:
+            AWS:
+              arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaDevRole
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSCloudFormationExecutionPolicy
+
+  GaiaAWSApiLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: GaiaAWSApiLambdaExecutionRole
+      MaxSessionDuration: 3600
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSDynamoWritePolicy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSDynamoReadOnlyPolicy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSWriteS3Policy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSReadS3Policy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSReadSettingsPolicy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSAsyncLambdaExecutionPolicy
+
+Outputs:
+  GaiaAWSCloudFormationExecutionRole:
+    Description: Role for CloudFormation Execution
+    Value:
+      Fn::GetAtt:
+      - GaiaAWSCloudFormationExecutionRole
+      - Arn
+    Export:
+      Name: GaiaAWSCloudFormationExecutionRole
