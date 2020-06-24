@@ -1,0 +1,18 @@
+Resources:
+  AccountsDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: created_at
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: created_at
+          KeyType: RANGE
+      TableName: requests

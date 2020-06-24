@@ -1,0 +1,22 @@
+service: gaia-dynamodb
+
+provider:
+  name: aws
+  stack_name: ${self:custom.config.default.stack_name}
+  region: eu-west-1
+  cfnRole: arn:aws:iam::${self:custom.config.${self:custom.stage}.aws_account_id}:role/GaiaAWSCloudFormationExecutionRole
+  stage: ${self:custom.stage}
+  stackTags:
+    ProjectName: Gaia
+    Component: Database
+  deploymentBucket:
+    name: {ssm:/gaia/global/serverless-deployment-bucket}
+  deploymentPrefix: account-manager/${self:service}
+
+custom:
+  stage: ${opt:env}
+  stack_name: ${self:service}-${self:custom.stage}
+  environment: ${file(../../../.env/env.yaml):{self:custom.stage}}
+
+resources:
+  - ${file(./request_table.yml)}

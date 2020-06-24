@@ -1,0 +1,35 @@
+name: Gaia Continous Deployment
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    env:
+      BUILD_CONFIG: Release
+
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.201
+      - name: Install Serverless Dependencies
+        run: npm install -g serverless@1.58
+      - name: Install AWS dotnet lambda tools Dependencies
+        run: dotnet tool install -g Amazon.Lambda.Tools
+      - name: Generate API lambda packages.
+        working-directory: ./gaia/services/api/src/Gaia.API
+        run: dotnet lambda package --verbosity quiet --configuration $BUILD_CONFIG --framework netcoreapp3.1 --output-package bin/release/netcoreapp3.1/gaia-api-package.zip
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+      - name: Serverless Deploy API
+        working-directory: ./gaia/services/api/
+        run: sls deploy ./gaia/ --env=prd --force
