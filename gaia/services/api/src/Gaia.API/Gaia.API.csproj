@@ -23,7 +23,6 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="$(MediatRExtensionsMicrosoftDependencyInjectionVersion)" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="$(NLogWebAspNetCoreVersion)" />
     <PackageReference Include="AWS.Logger.NLog" Version="$(AWSLoggerNLogVersion)" />
-    <PackageReference Include="Scrutor" Version="$(ScrutorVersion)" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="$(SwashbuckleAspNetCoreVersion)" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="$(SwashbuckleAspNetCoreVersion)" />
   </ItemGroup>

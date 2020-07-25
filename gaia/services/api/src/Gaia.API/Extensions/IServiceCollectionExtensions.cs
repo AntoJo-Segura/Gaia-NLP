@@ -28,25 +28,15 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             // Application services
-            services.Scan(scan => scan
-                    .FromAssemblyOf<OperationAppService>()
-                    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("AppService")))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime());
+            services.AddScoped<IOperationAppService, OperationAppService>();
+            services.AddScoped<ICPVAppService, CPVAppService>();
 
             // Factories
-            services.Scan(scan => scan
-                    .FromAssemblyOf<OperationFactory>()
-                    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Factory")))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime());
+            services.AddScoped<IOperationFactory, OperationFactory>();
 
             // Repositories
-            services.Scan(scan => scan
-                    .FromAssemblyOf<OperationRepository>()
-                    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Repository")))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime());
+            services.AddScoped<IOperationRepository, OperationRepository>();
+            services.AddScoped<ICPVRepository, CPVRepository>();
 
             // Transfer Utility
             services.AddScoped<ITransferUtility, TransferUtility>();
