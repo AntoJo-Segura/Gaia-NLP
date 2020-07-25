@@ -24,7 +24,6 @@
     <StyleCopAnalyzersVersion>1.1.118</StyleCopAnalyzersVersion>
     <MicrosoftCodeAnalysisFxCopAnalyzersVersion>3.0.0</MicrosoftCodeAnalysisFxCopAnalyzersVersion>
     <SwashbuckleAspNetCoreVersion>5.0.0</SwashbuckleAspNetCoreVersion>
-    <ScrutorVersion>3.0.1</ScrutorVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Test Packages">

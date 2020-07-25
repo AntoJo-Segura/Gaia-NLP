@@ -43,8 +43,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
+      # Serverless and Plugins
       - name: Install Serverless Dependencies
-        run: npm install -g serverless
+        run: |
+          npm install -g serverless
+          npm install --save-dev serverless-localstack
+          npm install serverless-deployment-bucket --save-dev
+      # Configure AWS
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
