@@ -2,6 +2,7 @@ service: gaia-dynamodb
 
 plugins:
   - serverless-localstack
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
@@ -20,6 +21,8 @@ custom:
   stack_name: ${self:service}-${self:custom.stage}
   environment: ${file(../../../shared/serverless-common.yml):${self:custom.stage}}
   common: ${file(../../../shared/serverless-common.yml)}
+  dotenv:
+    basePath: ../../../.env/
   localstack:
     stages:
       - local

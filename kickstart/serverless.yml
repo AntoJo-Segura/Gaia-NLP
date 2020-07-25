@@ -3,6 +3,7 @@ service: gaia-kickstart
 plugins:
   - serverless-localstack
   - serverless-deployment-bucket
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
@@ -23,6 +24,8 @@ custom:
   config:
     default: 
       deployments_bucket: ${self:custom.common.serverless_deployment_bucket}
+  dotenv:
+    basePath: ../.env/
   localstack:
     stages:
       - local

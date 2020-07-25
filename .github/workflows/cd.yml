@@ -54,6 +54,7 @@ jobs:
           npm install -g serverless
           npm install --save-dev serverless-localstack
           npm install serverless-deployment-bucket --save-dev
+          npm i -D serverless-dotenv-plugin
       # Configure AWS
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
