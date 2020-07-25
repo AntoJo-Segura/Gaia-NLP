@@ -29,7 +29,7 @@ jobs:
           path: '**/*'
   deploy:
     env:
-      ENVIRONMENT: prd
+      ENV: prd
 
     name: Deploy
     needs: build
@@ -65,16 +65,16 @@ jobs:
       # Deploy Politico
       - name: Deploy Politico
         working-directory: ./politico
-        run: sls deploy --env=prd --force
+        run: sls deploy --env=$ENV --force
       # Deploy Kickstart
       - name: Deploy Kickstart
         working-directory: ./kickstart
-        run: sls deploy --env=prd --force
+        run: sls deploy --env=$ENV --force
       # Deploy infrastructure
       - name: Deploy DynamoDB
         working-directory: ./gaia/infrastructure/dynamo
-        run: sls deploy --env=prd --force
+        run: sls deploy --env=$ENV --force
       # Deploy API
       - name: Deploy API
         working-directory: ./gaia/services/api/
-        run: sls deploy --env=$ENVIRONMENT --force
+        run: sls deploy --env=$ENV --force

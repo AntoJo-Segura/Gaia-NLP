@@ -3,7 +3,7 @@
     <NetStandardTargetVersion>netstandard2.0</NetStandardTargetVersion>
     <NetCoreTargetVersion>netcoreapp3.1</NetCoreTargetVersion>
   </PropertyGroup>
-  
+
   <PropertyGroup Label="Package Versions">
     <StyleCopAnalyzersVersion>1.1.118</StyleCopAnalyzersVersion>
     <AutoMapperVersion>8.1.1</AutoMapperVersion>
@@ -34,7 +34,7 @@
     <xunitrunnervisualstudioVersion>2.4.0</xunitrunnervisualstudioVersion>
     <coverletcollectorVersion>1.0.1</coverletcollectorVersion>
   </PropertyGroup>
-  
+
   <PropertyGroup Label="AWS Versions">
     <AmazonLambdaAspNetCoreServerVersion>5.1.1</AmazonLambdaAspNetCoreServerVersion>
     <AWSSDKExtensionsNETCoreSetupVersion>3.3.101</AWSSDKExtensionsNETCoreSetupVersion>
