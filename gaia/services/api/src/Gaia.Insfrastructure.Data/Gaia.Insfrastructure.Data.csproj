@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ConfigPath>..\..\..\..</ConfigPath>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="$(ConfigPath)\AssemblyCommon.props" />
+  
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="$(AutoMapperVersion)" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="$(AWSSDKDynamoDBv2Version)" />
+    <PackageReference Include="Equ" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gaia.Core\Gaia.Core.csproj" />
+  </ItemGroup>
+  
+</Project>

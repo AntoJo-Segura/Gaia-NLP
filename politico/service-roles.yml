@@ -12,12 +12,6 @@ Resources:
             Service: cloudformation.amazonaws.com
           Action:
           - sts:AssumeRole
-        - Effect: Allow
-          Principal:
-            AWS:
-              arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaDevRole
-          Action:
-          - sts:AssumeRole
       ManagedPolicyArns:
       - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSCloudFormationExecutionPolicy
 
@@ -41,13 +35,3 @@ Resources:
       - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSReadS3Policy
       - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSReadSettingsPolicy
       - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSAsyncLambdaExecutionPolicy
-
-Outputs:
-  GaiaAWSCloudFormationExecutionRole:
-    Description: Role for CloudFormation Execution
-    Value:
-      Fn::GetAtt:
-      - GaiaAWSCloudFormationExecutionRole
-      - Arn
-    Export:
-      Name: GaiaAWSCloudFormationExecutionRole

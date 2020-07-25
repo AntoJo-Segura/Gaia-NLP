@@ -1,0 +1,2 @@
+region: eu-west-1
+serverless_deployment_bucket: gaia-serverless-deployments-${self:custom.stage}

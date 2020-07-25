@@ -13,22 +13,30 @@ namespace GaiaWordAddIn
 {
     public partial class AddinController
     {
-        private UserControl _myUserControl1;
-        private CustomTaskPane _myCustomTaskPane;
+        private UserControl _gaiaTaskPaneDesign;
+        private CustomTaskPane _gaiaTaskPane;
+
+        public CustomTaskPane GaiaTaskPane => _gaiaTaskPane;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            _myUserControl1 = new TaskPaneControl();
-            _myCustomTaskPane = this.CustomTaskPanes.Add(_myUserControl1, "Gaia Addin");
-            _myCustomTaskPane.Visible = true;
-            _myCustomTaskPane.Width = 350;
+            _gaiaTaskPaneDesign = new TaskPaneControl();
+            _gaiaTaskPane = this.CustomTaskPanes.Add(_gaiaTaskPaneDesign, "Gaia Addin");
+            _gaiaTaskPane.Width = 350;
+            _gaiaTaskPane.VisibleChanged += new EventHandler(taskPaneValue_VisibleChanged);
+        }
+
+        private void taskPaneValue_VisibleChanged(object sender, System.EventArgs e)
+        {
+            Globals.Ribbons.Ribbon1.toggleButton1.Checked =
+                _gaiaTaskPane.Visible;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
         }
 
-        internal void includeTextAndSelect()
+        internal void IncludeTextAndSelect()
         {
             Word.Range rng = Application.ActiveDocument.Range(0, 0);
             rng.Text = "Esto es un texto muy largo y se va a seleccionar completamente";

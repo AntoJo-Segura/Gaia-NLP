@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ConfigPath>..\..\..\..</ConfigPath>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="$(ConfigPath)\AssemblyCommon.props" />
+  
+  <ItemGroup>
+    <PackageReference Include="Dawn.Guard" Version="$(DawnGuardVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Gaia.Core.UnitTest</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  
+</Project>

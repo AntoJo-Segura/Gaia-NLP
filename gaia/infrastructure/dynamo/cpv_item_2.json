@@ -1,0 +1,14 @@
+{
+    "Id": {
+      "S": "BB01-1"
+    },
+    "Type": {
+        "S": "standard"
+      },
+    "Descriptions": {
+      "SS": [
+        "Explosivo",
+        "Dinamita"
+      ]
+    }
+  }

@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="LocalEntryPoint.cs" company="Gaia">
+// Gaia Natural Language Processing
+// </copyright>
+
+using Gaia.API.Extensions;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Gaia.API
 {
-    public class Program
+    public sealed class LocalEntryPoint
     {
         public static void Main(string[] args)
         {
@@ -20,7 +19,9 @@ namespace Gaia.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .ConfigureNLog()
+                        .UseStartup<Startup>();
                 });
     }
 }

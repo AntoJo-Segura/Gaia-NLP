@@ -1,0 +1,59 @@
+service: gaia-api
+
+plugins:
+  - serverless-localstack
+
+provider:
+  name: aws
+  runtime: dotnetcore3.1
+  region: ${self:custom.common.region}
+  stackName: ${self:custom.stack_name}
+  stage: ${self:custom.stage}
+  cfnRole: arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaAWSCloudFormationExecutionRole
+  role: arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaAWSApiLambdaExecutionRole
+  stackTags:
+    ProjectName: Gaia-API
+  deploymentBucket: ${self:custom.common.serverless_deployment_bucket}
+  deploymentPrefix: ${self:service}
+  apiKeys:
+    - gaia-api-${self:custom.stage}
+
+custom:
+  stage: ${opt:env}
+  stack_name: ${self:service}-${self:custom.stage}
+  environment: ${file(../../../.env/env.yml):${self:custom.stage}}
+  common: ${file(../../../shared/serverless-common.yml)}
+  config:
+    default: 
+      operations_bucket: gaia-operations
+  localstack:
+    stages:
+      - local
+      - dev
+
+package:
+  artifact: bin/Gaia.API.zip
+
+functions:
+  ProxyHandler:
+    handler: Gaia.API::Gaia.API.LambdaEntryPoint::FunctionHandlerAsync
+    environment:
+      Logging__LogLevel__Default: Information
+    events:
+      - http:
+          method: any
+          path: '/{proxy+}'
+          private: true
+      - http:
+          method: any
+          path: '/'
+          private: true
+    timeout: 29
+
+resources:
+  Resources:
+    S3BucketOperations:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.config.default.operations_bucket}
+        AccessControl: BucketOwnerFullControl

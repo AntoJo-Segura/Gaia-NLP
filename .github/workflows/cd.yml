@@ -5,11 +5,11 @@ on:
       - master
 
 jobs:
-  deploy:
+  build:
     env:
       BUILD_CONFIG: Release
 
-    name: Deploy
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -17,19 +17,53 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.201
-      - name: Install Serverless Dependencies
-        run: npm install -g serverless@1.58
       - name: Install AWS dotnet lambda tools Dependencies
         run: dotnet tool install -g Amazon.Lambda.Tools
       - name: Generate API lambda packages.
         working-directory: ./gaia/services/api/src/Gaia.API
-        run: dotnet lambda package --verbosity quiet --configuration $BUILD_CONFIG --framework netcoreapp3.1 --output-package bin/release/netcoreapp3.1/gaia-api-package.zip
+        run: dotnet lambda package --verbosity quiet --configuration $BUILD_CONFIG --framework netcoreapp3.1 --output-package ../../bin/Gaia.API.zip
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: gaia-artifacts
+          path: '**/*'
+  deploy:
+    env:
+      ENVIRONMENT: prd
+
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: gaia-artifacts
+      - name: Setup node environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Install Serverless Dependencies
+        run: npm install -g serverless
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
-      - name: Serverless Deploy API
+          aws-region: ${{ secrets.AWS_REGION }}
+      # Deploy Politico
+      - name: Deploy Politico
+        working-directory: ./gaia/politico
+        run: sls deploy --env=prd --force
+      # Deploy Kickstart
+      - name: Deploy Kickstart
+        working-directory: ./gaia/kickstart
+        run: sls deploy --env=prd --force
+      # Deploy infrastructure
+      - name: Deploy DynamoDB
+        working-directory: ./gaia/infrastructure/dynamo
+        run: sls deploy --env=prd --force
+      # Deploy API
+      - name: Deploy API
         working-directory: ./gaia/services/api/
-        run: sls deploy ./gaia/ --env=prd --force
+        run: sls deploy --env=$ENVIRONMENT --force
