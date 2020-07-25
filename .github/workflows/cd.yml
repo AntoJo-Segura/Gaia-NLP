@@ -53,11 +53,11 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       # Deploy Politico
       - name: Deploy Politico
-        working-directory: ./gaia/politico
+        working-directory: ./politico
         run: sls deploy --env=prd --force
       # Deploy Kickstart
       - name: Deploy Kickstart
-        working-directory: ./gaia/kickstart
+        working-directory: ./kickstart
         run: sls deploy --env=prd --force
       # Deploy infrastructure
       - name: Deploy DynamoDB
