@@ -47,7 +47,7 @@ jobs:
       - name: Make envfile
         run: |
           mkdir .env
-          echo 'aws_prd_account_id: ${{ secrets.AWS_PRD_ACCOUNT_ID }}' > .env/env.yml
+          echo 'AWS_PRD_ACCOUNT_ID=${{ secrets.AWS_PRD_ACCOUNT_ID }}' > .env/.env
       # Serverless and Plugins
       - name: Install Serverless Dependencies
         run: |
