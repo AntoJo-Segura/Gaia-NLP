@@ -49,6 +49,11 @@ jobs:
           npm install -g serverless
           npm install --save-dev serverless-localstack
           npm install serverless-deployment-bucket --save-dev
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_aws_prd_account_id: ${{ secrets.SECRET_KEY }}
+          file_name: .env/env.yml
       # Configure AWS
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1

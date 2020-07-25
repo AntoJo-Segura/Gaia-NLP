@@ -1,2 +1,10 @@
 region: eu-west-1
 serverless_deployment_bucket: gaia-serverless-deployments-${self:custom.stage}
+dev:
+  aws_account_id: ${file(../.env/env.yml):aws_dev_account_id}
+
+stg:
+  aws_account_id: ${file(../.env/env.yml):aws_stg_account_id}
+
+prd:
+  aws_account_id: ${file(../.env/env.yml):aws_prd_account_id}

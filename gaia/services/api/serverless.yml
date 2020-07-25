@@ -21,7 +21,7 @@ provider:
 custom:
   stage: ${opt:env}
   stack_name: ${self:service}-${self:custom.stage}
-  environment: ${file(../../../.env/env.yml):${self:custom.stage}}
+  environment: ${file(../shared/serverless-common.yml):${self:custom.stage}}
   common: ${file(../../../shared/serverless-common.yml)}
   config:
     default: 
