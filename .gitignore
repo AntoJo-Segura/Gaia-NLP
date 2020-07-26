@@ -6,6 +6,10 @@
 # ENV
 .env/
 
+# Serverless
+.serverless
+*package-lock.json
+
 # User-specific files
 *.rsuser
 *.suo
@@ -351,3 +355,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# AWS CloudWatch errors
+gaia/services/api/src/Gaia.API/aws-logger-errors.txt

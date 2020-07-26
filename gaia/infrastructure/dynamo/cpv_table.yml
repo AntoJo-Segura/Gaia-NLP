@@ -1,0 +1,18 @@
+Resources:
+  CPVDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      AttributeDefinitions:
+        - AttributeName: Code
+          AttributeType: S
+        - AttributeName: Type
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: Type
+          KeyType: HASH
+        - AttributeName: Code
+          KeyType: RANGE
+      TableName: gaia-cpvs

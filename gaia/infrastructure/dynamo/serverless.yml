@@ -1,0 +1,33 @@
+service: gaia-dynamodb
+
+plugins:
+  - serverless-localstack
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  stack_name: ${self:custom.stack_name}
+  region: ${self:custom.common.region}
+  cfnRole: arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaAWSCloudFormationExecutionRole
+  stage: ${self:custom.stage}
+  stackTags:
+    ProjectName: Gaia
+    Component: Database
+  deploymentBucket: ${self:custom.common.serverless_deployment_bucket}
+  deploymentPrefix: ${self:service}
+
+custom:
+  stage: ${opt:env}
+  stack_name: ${self:service}-${self:custom.stage}
+  environment: ${file(../../../shared/serverless-common.yml):${self:custom.stage}}
+  common: ${file(../../../shared/serverless-common.yml)}
+  dotenv:
+    basePath: ../../../.env/
+  localstack:
+    stages:
+      - local
+      - dev
+
+resources:
+  - ${file(./operation_table.yml)}
+  - ${file(./cpv_table.yml)}

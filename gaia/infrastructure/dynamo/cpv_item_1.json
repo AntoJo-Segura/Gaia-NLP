@@ -1,0 +1,14 @@
+{
+    "Id": {
+      "S": "AA01-1"
+    },
+    "Type": {
+        "S": "standard"
+      },
+    "Descriptions": {
+      "SS": [
+        "Metal",
+        "Hierro"
+      ]
+    }
+  }

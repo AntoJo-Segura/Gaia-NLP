@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  
+  <Import Project="build/dependencies.props" />
+
+</Project>

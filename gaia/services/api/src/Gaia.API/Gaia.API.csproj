@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <ConfigPath>..\..\..\..</ConfigPath>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <Import Project="$(ConfigPath)\AssemblyCommon.props" />
+  
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="$(AmazonLambdaAspNetCoreServerVersion)" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="$(AutoMapperExtensionsMicrosoftDependencyInjectionVersion)" />
+    <PackageReference Include="AutoWrapper.Core" Version="$(AutoWrapperCoreVersion)" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="$(AWSSDKExtensionsNETCoreSetupVersion)" />
+    <PackageReference Include="AWSSDK.S3" Version="$(AWSSDKS3Version)" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="$(AWSSDKDynamoDBv2Version)" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="$(FluentValidationAspNetCoreVersion)" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="$(MediatRExtensionsMicrosoftDependencyInjectionVersion)" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="$(NLogWebAspNetCoreVersion)" />
+    <PackageReference Include="AWS.Logger.NLog" Version="$(AWSLoggerNLogVersion)" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="$(SwashbuckleAspNetCoreVersion)" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="$(SwashbuckleAspNetCoreVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gaia.Application\Gaia.Application.csproj" />
+    <ProjectReference Include="..\Gaia.Core\Gaia.Core.csproj" />
+    <ProjectReference Include="..\Gaia.Insfrastructure.Data\Gaia.Insfrastructure.Data.csproj" />
+  </ItemGroup>
+
+</Project>

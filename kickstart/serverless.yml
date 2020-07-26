@@ -1,36 +1,38 @@
 service: gaia-kickstart
+
+plugins:
+  - serverless-localstack
+  - serverless-deployment-bucket
+  - serverless-dotenv-plugin
+
 provider:
   name: aws
+  region: ${self:custom.common.region}
   stackName: ${self:custom.stack_name}
   stage: ${self:custom.stage}
-  region: eu-west-1
   cfnRole: arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaAWSCloudFormationExecutionRole
   stackTags:
     ProjectName: Kickstart
   deploymentBucket: 
-    name: ${self:custom.config.default.deployments_bucket}
-  deploymentPrefix: kick-start/${self:service}
+    name: ${self:service}-deployment-bucket
 
 custom:
   stage: ${opt:env}
   stack_name: ${self:service}-${self:custom.stage}
-  environment: ${file(../.env/env.yaml):{self:custom.stage}}
+  environment: ${file(../shared/serverless-common.yml):${self:custom.stage}}
+  common: ${file(../shared/serverless-common.yml)}
   config:
     default: 
-      artifacts_bucket: gaia-source-artifacts-${self:custom.stage}
-      deployments_bucket: gaia-serverless-deployments-${self:custom.stage}
+      deployments_bucket: ${self:custom.common.serverless_deployment_bucket}
+  dotenv:
+    basePath: ../.env/
+  localstack:
+    stages:
+      - local
+      - dev
 
+resources:
   Resources:
-    ArtifactsS3Bucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.config.default.artifacts_bucket}
-        AccessControl: BucketOwnerFullControl
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: AES256
-
     S3BucketServerlessDeployments:
       Type: AWS::S3::Bucket
       Properties:
@@ -40,19 +42,3 @@ custom:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
-
-    ArtifactsS3BucketName:
-      Type: AWS::SSM::Parameter
-      Properties:
-        Description: The Artifacts Bucket Name
-        Type: String
-        Name: /gaia/global/artifacts-bucket
-        Value: ${self:custom.config.default.artifacts_bucket}
-
-    ServerlessDeploymentsS3BucketName:
-      Type: AWS::SSM::Parameter
-      Properties:
-        Description: The Serverless Deployment Bucket Name
-        Type: String
-        Name: /gaia/global/serverless-deployment-bucket
-        Value: ${self:custom.config.default.deployments_bucket}

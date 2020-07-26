@@ -1,0 +1,23 @@
+Resources:
+  OperationsDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      AttributeDefinitions:
+        - AttributeName: Id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: Id
+          KeyType: HASH
+      TableName: gaia-operations
+
+Outputs:
+    OperationsDBTableStream:
+      Value:
+        Fn::GetAtt:
+        - OperationsDBTable
+        - StreamArn
+      Export:
+        Name: OperationsDBTableStream 

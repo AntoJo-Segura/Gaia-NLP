@@ -1,0 +1,42 @@
+service: gaia-processor
+
+plugins:
+  - serverless-localstack
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: python3.7
+  region: ${self:custom.common.region}
+  stackName: ${self:custom.stack_name}
+  stage: ${self:custom.stage}
+  cfnRole: arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaAWSCloudFormationExecutionRole
+  role: arn:aws:iam::${self:custom.environment.aws_account_id}:role/GaiaAWSProcessorLambdaExecutionRole
+  stackTags:
+    ProjectName: Gaia-Processor-Lambda
+  deploymentBucket: ${self:custom.common.serverless_deployment_bucket}
+  deploymentPrefix: ${self:service}
+
+custom:
+  stage: ${opt:env}
+  stack_name: ${self:service}-${self:custom.stage}
+  environment: ${file(../../../shared/serverless-common.yml):${self:custom.stage}}
+  common: ${file(../../../shared/serverless-common.yml)}
+  dotenv:
+    basePath: ../../../.env/
+  localstack:
+    stages:
+      - local
+      - dev
+
+functions:
+  Processor:
+    handler: handler.process_operations
+    timeout: 900
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::ImportValue: OperationsDBTableStream
+          enabled: true
+          batchSize: 100

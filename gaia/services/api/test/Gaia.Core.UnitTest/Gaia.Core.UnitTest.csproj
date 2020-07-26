@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdkVersion)" />
+    <PackageReference Include="xunit" Version="$(xunitVersion)" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="$(xunitrunnervisualstudioVersion)" />
+    <PackageReference Include="coverlet.collector" Version="$(coverletcollectorVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Gaia.Core\Gaia.Core.csproj" />
+  </ItemGroup>
+  
+</Project>

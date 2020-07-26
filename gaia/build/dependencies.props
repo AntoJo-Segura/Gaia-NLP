@@ -1,0 +1,47 @@
+<Project>
+  <PropertyGroup Label="SDK Versions">
+    <NetStandardTargetVersion>netstandard2.0</NetStandardTargetVersion>
+    <NetCoreTargetVersion>netcoreapp3.1</NetCoreTargetVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package Versions">
+    <StyleCopAnalyzersVersion>1.1.118</StyleCopAnalyzersVersion>
+    <AutoMapperVersion>8.1.1</AutoMapperVersion>
+    <FluentValidationVersion>8.4.0</FluentValidationVersion>
+    <MediatRVersion>6.0.0</MediatRVersion>
+    <MicrosoftAspNetCoreAllPackageVersion>3.1.5</MicrosoftAspNetCoreAllPackageVersion>
+    <AutoMapperExtensionsMicrosoftDependencyInjectionVersion>6.1.1</AutoMapperExtensionsMicrosoftDependencyInjectionVersion>
+    <NewtonsoftJsonVersion>12.0.2</NewtonsoftJsonVersion>
+    <AutoWrapperCoreVersion>4.2.2</AutoWrapperCoreVersion>
+    <AutoMapperVersion>9.0.0</AutoMapperVersion>
+    <AutoMapperExtensionsMicrosoftDependencyInjectionVersion>7.0.0</AutoMapperExtensionsMicrosoftDependencyInjectionVersion>
+    <MediatRVersion>8.0.1</MediatRVersion>
+    <FluentValidationVersion>8.6.2</FluentValidationVersion>
+    <FluentValidationAspNetCoreVersion>8.6.2</FluentValidationAspNetCoreVersion>
+    <NLogWebAspNetCoreVersion>4.9.1</NLogWebAspNetCoreVersion>
+    <MediatRExtensionsMicrosoftDependencyInjectionVersion>8.0.0</MediatRExtensionsMicrosoftDependencyInjectionVersion>
+    <DawnGuardVersion>1.12.0</DawnGuardVersion>
+    <StyleCopAnalyzersVersion>1.1.118</StyleCopAnalyzersVersion>
+    <MicrosoftCodeAnalysisFxCopAnalyzersVersion>3.0.0</MicrosoftCodeAnalysisFxCopAnalyzersVersion>
+    <SwashbuckleAspNetCoreVersion>5.0.0</SwashbuckleAspNetCoreVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Test Packages">
+    <MicrosoftNETTestSdkVersion>16.2.0</MicrosoftNETTestSdkVersion>
+    <FluentAssertionsVersion>5.10.3</FluentAssertionsVersion>
+    <AmazonLambdaTestUtilitiesVersion>1.1.0</AmazonLambdaTestUtilitiesVersion>
+    <xunitVersion>2.4.0</xunitVersion>
+    <xunitrunnervisualstudioVersion>2.4.0</xunitrunnervisualstudioVersion>
+    <coverletcollectorVersion>1.0.1</coverletcollectorVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="AWS Versions">
+    <AmazonLambdaAspNetCoreServerVersion>5.1.1</AmazonLambdaAspNetCoreServerVersion>
+    <AWSSDKExtensionsNETCoreSetupVersion>3.3.101</AWSSDKExtensionsNETCoreSetupVersion>
+    <AWSSDKS3Version>3.3.111.12</AWSSDKS3Version>
+    <AmazonLambdaLoggingAspNetCoreVersion>3.0.0</AmazonLambdaLoggingAspNetCoreVersion>
+    <AmazonExtensionsConfigurationSystemsManagerVersion>1.2.0</AmazonExtensionsConfigurationSystemsManagerVersion>
+    <AWSSDKDynamoDBv2Version>3.3.106.16</AWSSDKDynamoDBv2Version>
+    <AWSLoggerNLogVersion>1.5.2</AWSLoggerNLogVersion>
+  </PropertyGroup>
+</Project>

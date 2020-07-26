@@ -1,21 +1,32 @@
 service: gaia-politico
 
+plugins:
+  - serverless-localstack
+  - serverless-deployment-bucket
+  - serverless-dotenv-plugin
+
 provider:
   name: aws
   stackName: ${self:custom.stack_name}
   stage: ${self:custom.stage}
-  region: eu-west-1
+  region: ${self:custom.common.region}
   stackTags:
     ProjectName: Politico
   deploymentBucket:
-    name: {ssm:/gaia/global/serverless-deployment-bucket}
-  deploymentPrefix: gaia-politico/${self:service}
+    name: ${self:service}-deployment-bucket
   
 custom:
   stage: ${opt:env}
   stack_name: ${self:service}-${self:custom.stage}
-  environment: ${file(../.env/env.yaml):{self:custom.stage}}
+  environment: ${file(../shared/serverless-common.yml):${self:custom.stage}}
+  common: ${file(../shared/serverless-common.yml)}
+  dotenv:
+    basePath: ../.env/
+  localstack:
+    stages:
+      - local
+      - dev
     
 resources:
-- ${file(./service-policies.yml)}
-- ${file(./service-roles.yml)}
+  - ${file(./service-policies.yml)}
+  - ${file(./service-roles.yml)}
