@@ -23,7 +23,6 @@ Resources:
     - GaiaAWSWriteS3Policy
     - GaiaAWSReadS3Policy
     - GaiaAWSReadSettingsPolicy
-    - GaiaAWSAsyncLambdaExecutionPolicy
     Properties:
       RoleName: GaiaAWSApiLambdaExecutionRole
       MaxSessionDuration: 3600
@@ -36,6 +35,35 @@ Resources:
           - sts:AssumeRole
       ManagedPolicyArns:
       - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSDynamoWritePolicy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSDynamoReadOnlyPolicy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSWriteS3Policy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSReadS3Policy
+      - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSReadSettingsPolicy
+
+  GaiaAWSProcessorLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    DependsOn:
+    - GaiaAWSDynamoWritePolicy
+    - GaiaAWSDynamoReadOnlyPolicy
+    - GaiaAWSWriteS3Policy
+    - GaiaAWSReadS3Policy
+    - GaiaAWSReadSettingsPolicy
+    - GaiaAWSAsyncLambdaExecutionPolicy
+    Properties:
+      RoleName: GaiaAWSProcessorLambdaExecutionRole
+      MaxSessionDuration: 3600
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
       - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSDynamoWritePolicy
       - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSDynamoReadOnlyPolicy
       - arn:aws:iam::${self:custom.environment.aws_account_id}:policy/GaiaAWSWriteS3Policy
