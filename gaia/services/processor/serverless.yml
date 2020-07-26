@@ -32,6 +32,7 @@ custom:
 functions:
   Processor:
     handler: handler.process_operations
+    timeout: 900
     events:
       - stream:
           type: dynamodb

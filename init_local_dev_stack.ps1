@@ -22,7 +22,9 @@ cd ../../..
 Write-Host "DynamoDB deployed succesfuly!" -ForegroundColor Green
 
 Write-Host "Deploying GaiaAPI" -ForegroundColor Yellow
-cd gaia/services/api
+cd gaia/services/api/src/Gaia.API
+dotnet lambda package --verbosity quiet --configuration Debug --framework netcoreapp3.1 --output-package ../../bin/Gaia.API.zip
+cd ../../
 serverless deploy --env=dev --force
 cd ../../..
 Write-Host "GaiaAPI deployed succesfuly!" -ForegroundColor Green
