@@ -1,4 +1,3 @@
-
 Resources:
   GaiaAWSCloudFormationExecutionPolicy:
     Type: AWS::IAM::ManagedPolicy

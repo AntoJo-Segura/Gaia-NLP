@@ -1,7 +1,7 @@
-
 Resources:
   GaiaAWSCloudFormationExecutionRole:
     Type: AWS::IAM::Role
+    DependsOn: GaiaAWSCloudFormationExecutionPolicy
     Properties:
       RoleName: GaiaAWSCloudFormationExecutionRole
       MaxSessionDuration: 3600
@@ -17,6 +17,13 @@ Resources:
 
   GaiaAWSApiLambdaExecutionRole:
     Type: AWS::IAM::Role
+    DependsOn:
+    - GaiaAWSDynamoWritePolicy
+    - GaiaAWSDynamoReadOnlyPolicy
+    - GaiaAWSWriteS3Policy
+    - GaiaAWSReadS3Policy
+    - GaiaAWSReadSettingsPolicy
+    - GaiaAWSAsyncLambdaExecutionPolicy
     Properties:
       RoleName: GaiaAWSApiLambdaExecutionRole
       MaxSessionDuration: 3600

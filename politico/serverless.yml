@@ -28,5 +28,5 @@ custom:
       - dev
     
 resources:
-- ${file(./service-policies.yml)}
-- ${file(./service-roles.yml)}
+  - ${file(./service-policies.yml)}
+  - ${file(./service-roles.yml)}
